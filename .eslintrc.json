@@ -11,13 +11,25 @@
   },
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "es6": true
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module",
     "allowImportExportEverywhere": true
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".d.ts"]
+      }
+    },
+    "node": {
+      "resolvePaths": ["node_modules/@types"],
+      "tryExtensions": [".js", ".json", ".node", ".ts", ".d.ts"]
+    }
   },
   "rules": {
     "node/no-unsupported-features/es-syntax": [
@@ -39,6 +51,11 @@
       "last"
     ],
     "eol-last": 0,
+    "import/prefer-default-export": 0,
+    "max-len": ["error", {
+      "ignoreComments": true,
+      "code": 150
+    }],
     "no-unused-vars": 0,
     "no-console": 0,
     "func-names": 0,
@@ -50,14 +67,8 @@
     "no-undef": 0,
     "no-var": 0,
     "new-cap": 0,
-    "indent": [
-      2,
-      2,
-      {
-        "SwitchCase": 1
-      }
-    ],
-    "node/file-extension-in-import": ["error", "always"],
+    "indent": ["error", 4],
+    "import/extensions": 0,
     "node/prefer-global/buffer": ["error", "always"],
     "node/prefer-global/console": ["error", "always"],
     "node/prefer-global/process": ["error", "always"],

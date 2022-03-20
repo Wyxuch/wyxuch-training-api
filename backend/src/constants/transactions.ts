@@ -1,0 +1,1 @@
+export const COMMISSION_RETURN_CURRENCY = 'EUR';

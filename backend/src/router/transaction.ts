@@ -1,5 +1,10 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
+import { getCommission } from '../service/transaction';
 
-const transactionRoute = Router();
+const transactionApi = Router();
 
-export default transactionRoute;
+transactionApi.post('/', async (req: Request, res: Response) => {
+    res.status(200).send(await getCommission(req.body));
+});
+
+export default transactionApi;

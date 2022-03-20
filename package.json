@@ -1,0 +1,11 @@
+{
+  "name": "wyxuch-training-api",
+  "version": "1.0.0",
+  "description": "Exchange api",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "wyxuch",
+  "license": "ISC"
+}

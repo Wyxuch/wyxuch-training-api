@@ -1,1 +1,2 @@
 export const COMMISSION_RETURN_CURRENCY = 'EUR';
+export const LOWEST_DEFAULT_COMMISSION = 0.05;

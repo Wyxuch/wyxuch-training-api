@@ -78,7 +78,6 @@
     "node/prefer-promises/fs": "error"
   },
   "plugins": [
-    "react",
     "@typescript-eslint"
   ]
 }

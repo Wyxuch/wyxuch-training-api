@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { HttpError } from '../errors/generic';
+import { sameMonth } from './date';
+import { DB } from '../service/transaction';
 
 export interface Motd {
     msg: string;
@@ -39,7 +41,7 @@ export const exchangeToEuro = async (amount: number, currency: string): Promise<
                     throw new HttpError('Exchange API internal error', 500);
                 }
 
-                return res.data.rates[currency];
+                return res.data.rates[(currency.toUpperCase())];
             });
 
         if (!rate) {
@@ -52,4 +54,18 @@ export const exchangeToEuro = async (amount: number, currency: string): Promise<
         console.error(e);
         throw new HttpError(`Exchange API error:\n${e}`, 500);
     }
+};
+
+export const moreEqualThanXTurnover = (clientId: string, date: Date, turnover: number): boolean => {
+    const snap = DB.getUserById(clientId);
+    if (!snap) {
+        return false;
+    }
+    const transactions = snap.transactions.filter((transaction) => sameMonth(transaction.date, date));
+    // Way faster than reduce
+    let summedTurnover = 0;
+    transactions.forEach((el) => {
+        summedTurnover += el.amount;
+    });
+    return summedTurnover >= turnover;
 };

@@ -1,0 +1,53 @@
+@import "./src/constants/style";
+
+.nav {
+  width: 100%;
+  height: $nav-height;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.nav-link {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: $main-dark;
+
+  text-decoration: none;
+  font-family: sans-serif;
+  font-weight: bold;
+  color: darken($main-light, 20);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  @include dark-clickable-element;
+
+  &.active {
+    background-color: $main-light;
+    color: $main-dark;
+    cursor: not-allowed;
+    border-style: solid;
+    border-width: 1px 1px 0 1px;
+  }
+}
+
+.main {
+  padding: 16px;
+  background-color: $main-light;
+  min-height: 90vh;
+  border-style: solid;
+  border-color: $main-dark;
+  border-width: 0 1px 1px 1px;
+}
+
+@media screen and (max-width: 800px){
+  .App {
+    margin: 0;
+  }
+  .main {
+    min-height: calc(100vh - #{$nav-height});
+  }
+}

@@ -1,0 +1,7 @@
+@import "./src/constants/style";
+
+.App {
+  max-width: 800px;
+  margin: 16px auto;
+  box-shadow: $shadow;
+}

@@ -1,0 +1,1 @@
+export const sameMonth = (dateA: Date, dateB: Date): boolean => (dateA.getMonth() === dateB.getMonth() && dateA.getFullYear() === dateB.getFullYear());

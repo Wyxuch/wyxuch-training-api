@@ -1,7 +1,10 @@
 import { Commission, CommissionRule, Transaction } from '../types/transaction';
 import { COMMISSION_RETURN_CURRENCY, LOWEST_DEFAULT_COMMISSION } from '../constants/transactions';
-import { exchangeToEuro } from '../util/exchange';
+import { exchangeToEuro, moreEqualThanXTurnover } from '../util/exchange';
 import { HttpError } from '../errors/generic';
+import { Db } from '../__mock__/db';
+
+export const DB = new Db({});
 
 // It can be exported to other file if grows too big, for the sake of example I left it here.
 const commissionRules: Array<CommissionRule> = [
@@ -9,7 +12,7 @@ const commissionRules: Array<CommissionRule> = [
         description: 'Default commission',
         commission: {
             fixed: false,
-            amount: 0.5
+            amount: 0.005
         },
         getCommission({ amount }) {
             const commission = amount * this.commission.amount;
@@ -23,9 +26,9 @@ const commissionRules: Array<CommissionRule> = [
             amount: 0.05
         },
         getCommission({ clientId }) {
-            // if (!isVipClient(clientId) {
-            //     return false;
-            // }
+            if (!DB.getUserById(clientId)?.VIP) {
+                return false;
+            }
             return this.commission.amount;
         }
     },
@@ -36,9 +39,9 @@ const commissionRules: Array<CommissionRule> = [
             amount: 0.03
         },
         getCommission({ clientId, date }) {
-            // if (getClientMonthlyTurnover(clientId, date) < 1000) {
-            //     return false;
-            // }
+            if (!moreEqualThanXTurnover(clientId, date, 1000)) {
+                return false;
+            }
             return this.commission.amount;
         }
     },
@@ -65,8 +68,11 @@ export const getCommission = async (transaction: Transaction): Promise<Commissio
         throw new HttpError(`Couldn't get commission for the client: ${transaction.client_id}`, 500);
     }
 
+    const lowestAmount = Math.min(...possibleCommissions);
+    DB.addTransaction(transaction.client_id, { date: new Date(transaction.date), amount: commissionRuleProps.amount });
+
     return {
-        amount: Math.min(...possibleCommissions),
+        amount: Number(lowestAmount.toFixed(2)),
         currency: COMMISSION_RETURN_CURRENCY
     };
 };

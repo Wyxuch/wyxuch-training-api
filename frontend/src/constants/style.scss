@@ -1,0 +1,19 @@
+$main-dark: #2B2B2B;
+$main-light: #FFFFFF;
+$background-light: #F0F0F0;
+$error: #e34444;
+
+$shadow: 0px 0px 10px 0px rgba(66, 68, 90, 1);
+
+$nav-height: 60px;
+
+@mixin dark-clickable-element {
+  background-color: $main-dark;
+  color: $main-light;
+  cursor: pointer;
+
+  &:not(.active):hover {
+    background-color: lighten($main-dark, 10);
+    transition: background-color 0.2s ease-in-out;
+  }
+}

@@ -2,6 +2,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### Make sure to include .env!
 
+unfortunately it need to have test which i didn't manage to create yet
+
 ## Available Scripts
 
 From main directory, you can run:

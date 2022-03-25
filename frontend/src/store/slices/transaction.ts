@@ -10,6 +10,11 @@ export interface TransactionForm {
     currency: string;
 }
 
+export interface CustomError {
+    msg: string;
+    param?: string;
+}
+
 interface InitialState {
     transactionForm: TransactionForm;
     commission: Commission | undefined;
@@ -23,9 +28,9 @@ export const getCommissionApi = createAsyncThunk<Commission, void, {state: RootS
         const response = await postCommissionApi(transaction.transactionForm)
         if (response.status !== 200) {
             if (response.status === 400) {
-                return rejectWithValue('Please check if form is completed properly')
+                return rejectWithValue(`Please check if form is completed properly. ${response.data.errors.map((err: CustomError)=> `\nParam: ${err.param} - ${err.msg}`)}`)
             } else {
-                return rejectWithValue(response.statusText)
+                return rejectWithValue(`${response.data.errors.map((err: CustomError) => `\n${err.msg}`)}`);
             }
         } else {
             return response.data

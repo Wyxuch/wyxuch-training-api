@@ -17,6 +17,9 @@ export const transactionSchema: Schema = {
         matches: {
             options: /[0-9]{4}-[0-9]{2}-[0-9]{2}/,
             errorMessage: 'Date doesn\'t match pattern YYYY-MM-DD'
+        },
+        custom: {
+            options: ((value) => (!Number.isNaN((new Date(value)).getTime())))
         }
     }
 };

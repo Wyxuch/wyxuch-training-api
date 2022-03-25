@@ -1,4 +1,4 @@
 ./buildBackend.sh
-cd ./backend/build || exit
+cd backend/build/src || exit
 node index.js
-cd ../.. || exit
+cd ../../.. || exit

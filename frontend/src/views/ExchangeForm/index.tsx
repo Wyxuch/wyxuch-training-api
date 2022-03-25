@@ -18,11 +18,12 @@ const inputs: Array<InputProps> = [
     {
         label: 'Amount',
         name: 'amount',
+        type: 'number',
         placeholder: 'e.g. 123',
         validator: validateNumber
     },
     {
-        label: 'Currency',
+        label: 'Currency (short)',
         name: 'currency',
         placeholder: 'e.g. EUR',
         validator: validateCurrency

@@ -17,7 +17,6 @@ app.use(helmet());
 app.use(morgan('combined'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(errorHandlerMiddleware);
 app.use(cors(corsOptions));
 
 app.use('/transaction', transactionApi);
@@ -29,5 +28,7 @@ app.post('/', (req: Request, res: Response) => {
 app.use((req, res) => {
     res.status(404).send('404');
 });
+
+app.use(errorHandlerMiddleware);
 
 export default app;

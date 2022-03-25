@@ -23,7 +23,7 @@ const CommissionResult = () => {
                 <div className='commission-wrapper'>
                     <h2>{'Last Commission:'}</h2>
                     <p className='commission'>
-                        {`$$$ ${commission.amount}${commission.currency} $$$`}
+                        {`${commission.amount} ${commission.currency}`}
                     </p>
                 </div>
             )}
